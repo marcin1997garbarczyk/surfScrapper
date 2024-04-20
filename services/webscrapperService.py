@@ -35,6 +35,8 @@ class WebscrapperService:
         soupTime = soup.find('tr', class_='forecast-table-time')
         soupRating = soup.find('tr', class_='forecast-table-rating')
 
+        if(not soupRating):
+            return
         soupRatingWithCells = soupRating.find_all('td', class_='forecast-table__cell')
         soupDaysWithCells = soupDays.find_all('td', class_='forecast-table__cell')
         soupTimeWithCells = soupTime.find_all('td', class_='forecast-table__cell')
