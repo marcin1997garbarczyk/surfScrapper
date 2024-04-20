@@ -1,0 +1,3 @@
+from controllers import webscrapperController
+
+webscrapperController.runWebscrappingEngine()
