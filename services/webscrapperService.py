@@ -9,10 +9,13 @@ class WebscrapperService:
 
     def __init__(self, isHourlyMode):
         self.isHourlyMode = isHourlyMode
-        pass
+        if(self.isHourlyMode == False):
+            self.urlSuffix = '/six_day'
+        else:
+            self.urlSuffix = ''
 
     def collectNameOfBitches(self, url):
-        r = requests.get(url)
+        r = requests.get(f'{url}{self.urlSuffix}')
         soup = BeautifulSoup(r.content, 'html.parser')
 
         soupDays = soup.find('span', class_='third_step_span')
@@ -28,7 +31,7 @@ class WebscrapperService:
         return beachesArray[1:]
 
     def scrapeRatingForBeach(self, url, beachEntity):
-        r = requests.get(url)
+        r = requests.get(f'{url}{self.urlSuffix}')
         soup = BeautifulSoup(r.content, 'html.parser')
 
         soupDays = soup.find('tr', class_='forecast-table-days')

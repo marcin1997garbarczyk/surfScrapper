@@ -12,15 +12,15 @@ class ForecastDataService:
         for beachEntity in beachCollection:
             print(beachEntity)
 
-    def showConditionForTodayForBeaches(self, collectionOfBeaches = None):
+    def showConditionForTodayForBeaches(self, collectionOfBeaches = None, indexOfDay = 0):
         if(collectionOfBeaches is None):
             collectionOfBeaches = self.beachEntities
         for beachEntity in collectionOfBeaches:
-            print(f'\n Name of beach {beachEntity.nameOfBeach}')
-            print('Tommorow condition is: ')
+            print(f'\n Beach: {beachEntity.nameOfBeach}')
             if(not beachEntity.daysWithRatings):
                 continue
-            dayEntity = beachEntity.daysWithRatings[0]
+            dayEntity = beachEntity.daysWithRatings[indexOfDay]
+            print(f'Condition for {dayEntity.dayName}:')
             for ratingEntity in dayEntity.ratingsForDay:
                 print(f'- {ratingEntity}')
 

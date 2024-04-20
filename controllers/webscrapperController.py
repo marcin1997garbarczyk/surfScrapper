@@ -3,13 +3,13 @@ from services.forecastDataService import ForecastDataService
 from services.webscrapperService import WebscrapperService
 
 def runWebscrappingEngine():
-    webscrapperService = WebscrapperService(False)
-    name_of_beaches = webscrapperService.collectNameOfBitches('https://www.surf-forecast.com/breaks/Praiado-Amado/forecasts/latest/six_day')
+    webscrapperService = WebscrapperService(isHourlyMode=True)
+    name_of_beaches = webscrapperService.collectNameOfBitches('https://www.surf-forecast.com/breaks/Praiado-Amado/forecasts/latest')
 
     beachEntities = []
-    for idx, beachName in enumerate(name_of_beaches):
+    for index, beachName in enumerate(name_of_beaches):
         beachEntity = BeachEntity(beachName)
-        webscrapperService.scrapeRatingForBeach(f'https://www.surf-forecast.com/breaks/{beachName}/forecasts/latest/six_day', beachEntity)
+        webscrapperService.scrapeRatingForBeach(f'https://www.surf-forecast.com/breaks/{beachName}/forecasts/latest', beachEntity)
         beachEntities.append(beachEntity)
 
     forecastDataService = ForecastDataService(beachEntities)
