@@ -14,7 +14,7 @@ class WebscrapperService:
         else:
             self.urlSuffix = ''
 
-    def collectNameOfBitches(self, url):
+    def collectNameOfBeaches(self, url):
         r = requests.get(f'{url}{self.urlSuffix}')
         soup = BeautifulSoup(r.content, 'html.parser')
 
