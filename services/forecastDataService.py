@@ -34,8 +34,9 @@ class ForecastDataService:
             dayEntity = beachEntity.daysWithRatings[indexOfDay]
             for ratingEntity in dayEntity.ratingsForDay:
                 if(int(ratingEntity.rating) >= int(highestNumberInRating)):
-                    sortedBeaches.insert(0, beachEntity)
                     highestNumberInRating = int(ratingEntity.rating)
+                    if(len(sortedBeaches) == 0 or (len(sortedBeaches) > 0  and sortedBeaches[0].nameOfBeach != beachEntity.nameOfBeach)):
+                        sortedBeaches.insert(0, beachEntity)
 
         newCollectionOfSortedBeaches = sortedBeaches[:3]
-        self.showConditionForTodayForBeaches(newCollectionOfSortedBeaches)
+        self.showConditionForTodayForBeaches(newCollectionOfSortedBeaches, indexOfDay)

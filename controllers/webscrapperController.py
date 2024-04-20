@@ -14,6 +14,8 @@ def getNameOfBeachesInAlgarve(webscrapperService):
 def buildBeachEntitiesFromWebsite(webscrapperService, name_of_beaches):
     beachEntities = []
     for index, beachName in enumerate(name_of_beaches):
+        # if(index > 3):
+        #     break
         beachEntity = BeachEntity(beachName)
         webscrapperService.scrapeRatingForBeach(f'https://www.surf-forecast.com/breaks/{beachName}/forecasts/latest', beachEntity)
         beachEntities.append(beachEntity)
@@ -25,4 +27,4 @@ def workWithBeachEntitiesData(beachEntities):
     # Index for day is count from today +n
     # Today = 0
     # Tommorow = 1 ... n+1
-    forecastDataService.showThreeBestSpotsForDay(indexOfDay=0)
+    forecastDataService.showThreeBestSpotsForDay(indexOfDay=1)
