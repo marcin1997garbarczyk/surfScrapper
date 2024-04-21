@@ -1,4 +1,4 @@
-from surfScrapperEngine.entities.dayEntity import DayEntity
+from surfScrapperApi.surfScrapperEngine.entities.dayEntity import DayEntity
 
 
 class BeachEntity:

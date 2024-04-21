@@ -1,6 +1,6 @@
-from surfScrapperEngine.entities.beachEntity import BeachEntity
-from surfScrapperEngine.services.forecastDataService import ForecastDataService
-from surfScrapperEngine.services.webscrapperService import WebscrapperService
+from surfScrapperApi.surfScrapperEngine.entities.beachEntity import BeachEntity
+from surfScrapperApi.surfScrapperEngine.services.forecastDataService import ForecastDataService
+from surfScrapperApi.surfScrapperEngine.services.webscrapperService import WebscrapperService
 
 def runWebscrappingEngine():
     webscrapperService = WebscrapperService(isHourlyMode=True)
