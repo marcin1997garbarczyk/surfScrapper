@@ -1,3 +1,3 @@
-from controllers import webscrapperController
+from surfScrapperEngine.controllers import webscrapperController
 
 webscrapperController.runWebscrappingEngine()

@@ -1,6 +1,6 @@
-from entities.beachEntity import BeachEntity
-from services.forecastDataService import ForecastDataService
-from services.webscrapperService import WebscrapperService
+from surfScrapperEngine.entities.beachEntity import BeachEntity
+from surfScrapperEngine.services.forecastDataService import ForecastDataService
+from surfScrapperEngine.services.webscrapperService import WebscrapperService
 
 def runWebscrappingEngine():
     webscrapperService = WebscrapperService(isHourlyMode=True)
@@ -27,4 +27,4 @@ def workWithBeachEntitiesData(beachEntities):
     # Index for day is count from today +n
     # Today = 0
     # Tommorow = 1 ... n+1
-    forecastDataService.showThreeBestSpotsForDay(indexOfDay=1)
+    forecastDataService.showThreeBestSpotsForDay(indexOfDay=3)

@@ -1,8 +1,7 @@
 import requests
 from bs4 import BeautifulSoup
 
-from entities.dayEntity import DayEntity
-from entities.ratingEntity import RatingEntity
+from surfScrapperEngine.entities.ratingEntity import RatingEntity
 
 
 class WebscrapperService:
