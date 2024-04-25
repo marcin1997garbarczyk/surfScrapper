@@ -12,7 +12,7 @@ class SubmitSubscriberFormView(APIView):
         if serializer.is_valid():
             serializer.save()
             print('Test_2')
-            return Response({'message': 'Form submitted successfully!'}, status=status.HTTP_201_CREATED)
+            return Response({'message': 'Form submitted successfully!'}, status=status.HTTP_201_CREATED, content_type='application/json')
         else:
             print('cos tam jest zjebane')
             return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)

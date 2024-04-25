@@ -3,17 +3,73 @@
 {% load static %}
 <!--{% block scriptInjection %} <script src="{% static 'registerFormController.js' %}"></script> {% endblock %}-->
 
-<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
-<script src="{% static 'registerFormController.js' %}"></script>
+
+
 {% block content %}
 
-    <h1> Register form </h1>
+<h1> Register for subscription</h1>
+
+<div class="card">
+  <div class="card-body">
     <form>
-      <div class="form-group">
-        <label for="exampleInputEmail1">Email address</label>
-        <input type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Enter email">
-        <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small>
+      <div class="mb-3">
+        <label for="exampleInputEmail1" class="form-label">Email address</label>
+        <input type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp">
+        <div id="emailHelp" class="form-text">We'll never share your email with anyone else.</div>
+      </div>
+      <div class="mb-3">
+          <select id='Selector' class="selectpicker" multiple aria-label="size 3 select example">
+            <option value="1">One</option>
+            <option value="2">Two</option>
+            <option value="3">Three</option>
+            <option value="4">Four</option>
+          </select>
       </div>
       <button type="submit" class="btn btn-primary" onclick="myFunction()">Submit</button>
     </form>
+  </div>
+</div>
+
+<!--    <form>-->
+<!--      <div class="form-group">-->
+<!--        <label for="exampleInputEmail1">Email address</label>-->
+<!--        <input type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Enter email">-->
+<!--        <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small>-->
+<!--        <br/>-->
+<!--        <br/>-->
+
+
+<!--        <label for="exampleInputEmail1">Beach to track</label>-->
+<!--        <br/>-->
+<!--          <select class="selectpicker" multiple aria-label="size 3 select example">-->
+<!--            <option value="1">One</option>-->
+<!--            <option value="2">Two</option>-->
+<!--            <option value="3">Three</option>-->
+<!--            <option value="4">Four</option>-->
+<!--          </select>-->
+<!--        </div>-->
+
+
+<!--        <br/>-->
+<!--      <button type="submit" class="btn btn-primary" onclick="myFunction()">Submit</button>-->
+<!--    </form>-->
+    <!-- Flexbox container for aligning the toasts -->
+    <div aria-live="polite" aria-atomic="true" class="d-flex justify-content-center align-items-center w-100">
+
+      <!-- Then put toasts within -->
+      <div class="toast" role="alert" aria-live="assertive" aria-atomic="true">
+        <div class="toast-header">
+          <img src="..." class="rounded me-2" alt="...">
+          <strong class="me-auto">Bootstrap</strong>
+          <small>11 mins ago</small>
+          <button type="button" class="btn-close" data-bs-dismiss="toast" aria-label="Close"></button>
+        </div>
+        <div class="toast-body">
+          Hello, world! This is a toast message.
+        </div>
+      </div>
+    </div>
+    <script src="{% static 'registerFormController.js' %}"></script>
+
 {% endblock %}
+
