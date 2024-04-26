@@ -14,18 +14,15 @@
     <form>
       <div class="mb-3">
         <label for="exampleInputEmail1" class="form-label">Email address</label>
-        <input type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp">
+        <input id='emailInput' type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp">
         <div id="emailHelp" class="form-text">We'll never share your email with anyone else.</div>
       </div>
       <div class="mb-3">
-          <select id='Selector' class="selectpicker" multiple aria-label="size 3 select example">
-            <option value="1">One</option>
-            <option value="2">Two</option>
-            <option value="3">Three</option>
-            <option value="4">Four</option>
+          <select id='Selector' class="selectpicker" multiple aria-label="size 3 select example" data-selected-text-format="count > 1">
+            <option value="1">Still loading...</option>
           </select>
       </div>
-      <button type="submit" class="btn btn-primary" onclick="myFunction()">Submit</button>
+      <button type="submit" class="btn btn-primary" onclick="submitForm()">Submit</button>
     </form>
   </div>
 </div>

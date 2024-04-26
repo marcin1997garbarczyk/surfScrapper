@@ -1,24 +1,42 @@
 
-function init() {
-
+async function init() {
+    let data = await callForBeachNames();
     selectBox = $('#Selector')
-    let data = [{'display':'dupa', 'value':'dupa'}, {'display':'dupa1', 'value':'dupa1'}, {'display':'dupa2', 'value':'dupa2'}]
     if (data.length > 0) {
         var output = [];
         $.each(data, function (i, dat) {
-            debugger
-            output.push(`<option value=${dat.value}> ${dat.display} </option>`);
+            output.push(`<option value=${dat}> ${dat} </option>`);
         });
-        selectBox.html(output.join("")); // ... on the original element
-        selectBox.selectpicker("refresh"); // refresh the options
+        selectBox.html(output.join(""));
+        selectBox.selectpicker("refresh");
+        return true
     }
+    return false
 }
 
-async function myFunction(event) {
+async function callForBeachNames() {
+    let apiCallResponse = await fetch("http://127.0.0.1:8000/api/get_available_beaches", {
+            method: "GET",
+            credentials: "same-origin",
+            headers: {
+              "X-CSRFToken": getCookie("csrftoken"),
+              "Accept": "application/json",
+              'Content-Type': 'application/json'
+            },
+        })
+    debugger
+    if(apiCallResponse.status == 200) {
+        let apiCallParsedResponse = await apiCallResponse.json();
+        return apiCallParsedResponse.beach_names
+    }
+    return []
+}
+
+async function submitForm(event) {
     let apiCallResponse = await fetch("http://127.0.0.1:8000/api/submit_subscriber_form", {
           method: "POST",
           body: JSON.stringify({
-            userEmail: 'test@test',
+            userEmail: $('#emailInput').val(),
             trackedBeaches: JSON.stringify($('.selectpicker').val()),
           }),
             credentials: "same-origin",
@@ -55,4 +73,7 @@ function getCookie(name) {
     return cookieValue;
 }
 
-init();
+let alreadyInited = false;
+if(!alreadyInited) {
+    alreadyInited = init();
+}

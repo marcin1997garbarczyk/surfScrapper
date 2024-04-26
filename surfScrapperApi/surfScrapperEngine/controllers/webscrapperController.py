@@ -8,6 +8,11 @@ def runWebscrappingEngine():
     beachEntities = buildBeachEntitiesFromWebsite(webscrapperService, name_of_beaches)
     workWithBeachEntitiesData(beachEntities)
 
+def getNameOfBeachesForApi():
+    webscrapperService = WebscrapperService(isHourlyMode=True)
+    name_of_beaches = getNameOfBeachesInAlgarve(webscrapperService)
+    return name_of_beaches
+
 def getNameOfBeachesInAlgarve(webscrapperService):
     return webscrapperService.collectNameOfBeaches('https://www.surf-forecast.com/breaks/Praiado-Amado/forecasts/latest')
 

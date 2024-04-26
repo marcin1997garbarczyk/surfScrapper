@@ -5,3 +5,4 @@ from django.db import models
 class Subscriber(models.Model):
     userEmail = models.CharField(max_length=200)
     trackedBeaches = models.CharField(max_length=5000)
+    isActive = models.BooleanField(default=False)
