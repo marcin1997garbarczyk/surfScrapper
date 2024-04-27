@@ -1,3 +1,3 @@
 from surfScrapperApi.surfScrapperEngine.controllers import webscrapperController
 
-webscrapperController.runWebscrappingEngine()
+webscrapperController.getBestSpotsForTommorow()

@@ -2,7 +2,7 @@ from surfScrapperApi.surfScrapperEngine.entities.beachEntity import BeachEntity
 from surfScrapperApi.surfScrapperEngine.services.forecastDataService import ForecastDataService
 from surfScrapperApi.surfScrapperEngine.services.webscrapperService import WebscrapperService
 
-def runWebscrappingEngine():
+def getBestSpotsForTommorow():
     webscrapperService = WebscrapperService(isHourlyMode=True)
     name_of_beaches = getNameOfBeachesInAlgarve(webscrapperService)
     beachEntities = buildBeachEntitiesFromWebsite(webscrapperService, name_of_beaches)
@@ -19,8 +19,6 @@ def getNameOfBeachesInAlgarve(webscrapperService):
 def buildBeachEntitiesFromWebsite(webscrapperService, name_of_beaches):
     beachEntities = []
     for index, beachName in enumerate(name_of_beaches):
-        # if(index > 3):
-        #     break
         beachEntity = BeachEntity(beachName)
         webscrapperService.scrapeRatingForBeach(f'https://www.surf-forecast.com/breaks/{beachName}/forecasts/latest', beachEntity)
         beachEntities.append(beachEntity)
@@ -32,4 +30,4 @@ def workWithBeachEntitiesData(beachEntities):
     # Index for day is count from today +n
     # Today = 0
     # Tommorow = 1 ... n+1
-    forecastDataService.showThreeBestSpotsForDay(indexOfDay=3)
+    forecastDataService.showThreeBestSpotsForDay(indexOfDay=1)
