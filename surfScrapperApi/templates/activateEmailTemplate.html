@@ -1,0 +1,11 @@
+ {% autoescape off %}
+    Hi surfer!
+
+    Please click on the link to confirm your registration for subscription!
+    You will get notification for best spots for tommorow!
+    Beach to track: {{ user.trackedBeaches }}
+
+    Link to activate: http://{{ domain }}{% url 'activate' uidb64=uid token=token %}
+
+    Keep the wave!
+ {% endautoescape %}

@@ -6,7 +6,7 @@ def getBestSpotsForTommorow():
     webscrapperService = WebscrapperService(isHourlyMode=True)
     name_of_beaches = getNameOfBeachesInAlgarve(webscrapperService)
     beachEntities = buildBeachEntitiesFromWebsite(webscrapperService, name_of_beaches)
-    workWithBeachEntitiesData(beachEntities)
+    return filterBeachEntitiesToThreeBest(beachEntities)
 
 def getNameOfBeachesForApi():
     webscrapperService = WebscrapperService(isHourlyMode=True)
@@ -25,9 +25,9 @@ def buildBeachEntitiesFromWebsite(webscrapperService, name_of_beaches):
 
     return beachEntities
 
-def workWithBeachEntitiesData(beachEntities):
+def filterBeachEntitiesToThreeBest(beachEntities):
     forecastDataService = ForecastDataService(beachEntities)
     # Index for day is count from today +n
     # Today = 0
     # Tommorow = 1 ... n+1
-    forecastDataService.showThreeBestSpotsForDay(indexOfDay=1)
+    return forecastDataService.getThreeBestSpotsForDay(indexOfDay=0)

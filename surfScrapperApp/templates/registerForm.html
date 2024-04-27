@@ -4,53 +4,31 @@
 <!--{% block scriptInjection %} <script src="{% static 'registerFormController.js' %}"></script> {% endblock %}-->
 
 
-
 {% block content %}
-
-<h1> Register for subscription</h1>
+<br/>
+<h1 class="fw-lighter">Subscription for information about ratings!</h1>
 
 <div class="card">
   <div class="card-body">
     <form>
       <div class="mb-3">
-        <label for="exampleInputEmail1" class="form-label">Email address</label>
+        <label for="exampleInputEmail1" class="form-label fw-lighter">Email address</label>
         <input id='emailInput' type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp">
         <div id="emailHelp" class="form-text">We'll never share your email with anyone else.</div>
       </div>
       <div class="mb-3">
-          <select id='Selector' class="selectpicker" multiple aria-label="size 3 select example" data-selected-text-format="count > 1">
+        <label for="selectPickerInput" class="form-label fw-lighter">Beach to track</label>
+        <br/>
+          <select id='Selector' class="selectpicker" id="selectPickerInput" multiple aria-label="size 3 select example" data-selected-text-format="count > 1">
             <option value="1">Still loading...</option>
           </select>
-      </div>
-      <button type="submit" class="btn btn-primary" onclick="submitForm()">Submit</button>
+      </div><div class="text-center">
+      <button type="submit" class="btn btn-secondary" onclick="submitForm()">Register me!</button>
+    </div>
     </form>
   </div>
 </div>
 
-<!--    <form>-->
-<!--      <div class="form-group">-->
-<!--        <label for="exampleInputEmail1">Email address</label>-->
-<!--        <input type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Enter email">-->
-<!--        <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small>-->
-<!--        <br/>-->
-<!--        <br/>-->
-
-
-<!--        <label for="exampleInputEmail1">Beach to track</label>-->
-<!--        <br/>-->
-<!--          <select class="selectpicker" multiple aria-label="size 3 select example">-->
-<!--            <option value="1">One</option>-->
-<!--            <option value="2">Two</option>-->
-<!--            <option value="3">Three</option>-->
-<!--            <option value="4">Four</option>-->
-<!--          </select>-->
-<!--        </div>-->
-
-
-<!--        <br/>-->
-<!--      <button type="submit" class="btn btn-primary" onclick="myFunction()">Submit</button>-->
-<!--    </form>-->
-    <!-- Flexbox container for aligning the toasts -->
     <div aria-live="polite" aria-atomic="true" class="d-flex justify-content-center align-items-center w-100">
 
       <!-- Then put toasts within -->

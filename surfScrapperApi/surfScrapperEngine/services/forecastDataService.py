@@ -1,3 +1,5 @@
+from numpy.core.defchararray import isnumeric
+
 
 class ForecastDataService:
 
@@ -13,18 +15,24 @@ class ForecastDataService:
             print(beachEntity)
 
     def showConditionForTodayForBeaches(self, collectionOfBeaches = None, indexOfDay = 0):
+        flatStructureForString = ''
         if(collectionOfBeaches is None):
             collectionOfBeaches = self.beachEntities
         for beachEntity in collectionOfBeaches:
-            print(f'\n Beach: {beachEntity.nameOfBeach}')
+            # print(f'\n Beach: {beachEntity.nameOfBeach}')
+            flatStructureForString += f'<br/> Beach: {beachEntity.nameOfBeach} '
             if(not beachEntity.daysWithRatings):
                 continue
             dayEntity = beachEntity.daysWithRatings[indexOfDay]
-            print(f'Condition for {dayEntity.dayName}:')
-            for ratingEntity in dayEntity.ratingsForDay:
-                print(f'- {ratingEntity}')
 
-    def showThreeBestSpotsForDay(self, indexOfDay = 0):
+            flatStructureForString += f'<br/> Condition for {dayEntity.dayName}:'
+            # print(f'Condition for {dayEntity.dayName}:')
+            for ratingEntity in dayEntity.ratingsForDay:
+                flatStructureForString += f'<br/>{ratingEntity}'
+                # print(f'- {ratingEntity}')
+        return flatStructureForString
+
+    def getThreeBestSpotsForDay(self, indexOfDay = 0):
         sortedBeaches = []
         highestNumberInRating = 0
 
@@ -33,10 +41,11 @@ class ForecastDataService:
                 continue
             dayEntity = beachEntity.daysWithRatings[indexOfDay]
             for ratingEntity in dayEntity.ratingsForDay:
-                if(int(ratingEntity.rating) >= int(highestNumberInRating)):
+                if(isnumeric(ratingEntity.rating) and int(ratingEntity.rating) >= int(highestNumberInRating)):
                     highestNumberInRating = int(ratingEntity.rating)
                     if(len(sortedBeaches) == 0 or (len(sortedBeaches) > 0  and sortedBeaches[0].nameOfBeach != beachEntity.nameOfBeach)):
                         sortedBeaches.insert(0, beachEntity)
 
-        newCollectionOfSortedBeaches = sortedBeaches[:3]
-        self.showConditionForTodayForBeaches(newCollectionOfSortedBeaches, indexOfDay)
+        newCollectionOfSortedBeaches = sortedBeaches
+        flatStructureForRatings = self.showConditionForTodayForBeaches(newCollectionOfSortedBeaches, indexOfDay)
+        return flatStructureForRatings.split('Beach:')[1:]

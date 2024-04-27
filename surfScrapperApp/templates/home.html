@@ -1,8 +1,24 @@
 {% extends 'base.html' %}
 
 {% block title %} Home Page {% endblock %}
+{% load static %}
 
 {% block content %}
-<h1>Home Page</h1>
-<p>Home Page</p>
+<br/>
+<h1 class="fw-lighter">No mercy! From the best to the worst spots for today in Algarve! Find best!</h1>
+<link rel="stylesheet" href="static/css/homePage.css">
+<!--<div id="loader">Scrapper is doing job... Be patient...</div>-->
+<div id="forecastData" style="display:flex; flex-wrap: wrap; justify-content: space-around; margin-top: 50px;">
+    <p class="text-center fw-lighter">Scrapper is doing job... Be patient... We need to scan sooo many websites for you!</p>
+    <div class="loading" style="display:flex ">
+      <div class="obj"></div>
+      <div class="obj"></div>
+      <div class="obj"></div>
+      <div class="obj"></div>
+      <div class="obj"></div>
+      <div class="obj"></div>
+    </div>
+</div>
+<script src="{% static 'homePageController.js' %}"></script>
 {% endblock %}
+

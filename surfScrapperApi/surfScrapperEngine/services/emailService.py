@@ -7,10 +7,23 @@ from django.utils.http import urlsafe_base64_encode, urlsafe_base64_decode
 
 
 class EmailService:
+
+    def sendInformativeEmail(self, user):
+        mail_subject = 'Change your subscription.'
+        message = render_to_string(
+            'changeEmailTemplate.html',
+            {
+                'user': user,
+            }
+        )
+        to_email = user.userEmail
+        email = EmailMessage(mail_subject, message, to=[to_email])
+        email.send()
+
     def sendActivationEmail(self, request, user, userToken):
         mail_subject = 'Activate your subscription.'
         message = render_to_string(
-            'emailTemplate.html',
+            'activateEmailTemplate.html',
             {
                 'user': user,
                 'domain': get_current_site(request).domain,

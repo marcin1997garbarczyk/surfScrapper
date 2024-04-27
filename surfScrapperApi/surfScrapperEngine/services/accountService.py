@@ -15,11 +15,24 @@ class AccountService:
     def checkTokenForUser(self, user, token):
         return self.tokenGenerator.check_token(user, token)
 
-    def createNewUser(self, request, serializer):
+    def upsertSubscription(self, request, subscriberModel, serializer):
         if serializer.is_valid():
-            obj = serializer.save()
+            try:
+                obj = subscriberModel.objects.get(userEmail=serializer.data.get('userEmail'))
+                obj.trackedBeaches = serializer.data.get('trackedBeaches')
+                obj.save()
+            except(TypeError, ValueError, OverflowError, subscriberModel.DoesNotExist):
+                obj = subscriberModel()
+                obj.userEmail = serializer.data.get('userEmail')
+                obj.trackedBeaches = serializer.data.get('trackedBeaches')
+                obj.save()
+
             print(f'Save {obj.pk}')
-            EmailService().sendActivationEmail(request, obj, self.getTokenForUser(obj))
+            if(obj.isActive):
+                EmailService().sendInformativeEmail(obj)
+            else:
+                EmailService().sendActivationEmail(request, obj, self.getTokenForUser(obj))
+
             return True
         else:
             return False
