@@ -2,6 +2,13 @@ from surfScrapperApi.surfScrapperEngine.entities.beachEntity import BeachEntity
 from surfScrapperApi.surfScrapperEngine.services.forecastDataService import ForecastDataService
 from surfScrapperApi.surfScrapperEngine.services.webscrapperService import WebscrapperService
 
+
+def sendEmailToSubscribers(db):
+    # pass
+    new_cur = db.cursor()
+    subscribers = new_cur.execute("SELECT isActive FROM Subscribers ")
+    print(subscribers)
+
 def getBestSpotsForTommorow():
     webscrapperService = WebscrapperService(isHourlyMode=True)
     name_of_beaches = getNameOfBeachesInAlgarve(webscrapperService)

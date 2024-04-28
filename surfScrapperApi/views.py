@@ -38,6 +38,3 @@ class SubmitSubscriberFormView(APIView):
             return Response({'message': 'Form submitted successfully!'}, status=status.HTTP_201_CREATED, content_type='application/json')
         else:
             return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
-
-
-

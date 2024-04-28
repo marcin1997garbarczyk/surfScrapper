@@ -1,6 +1,6 @@
 import bpy as bpy
 from numpy.core.defchararray import isnumeric
-
+import numpy as np
 
 class ForecastDataService:
 
@@ -35,32 +35,37 @@ class ForecastDataService:
 
     def getThreeBestSpotsForDay(self, indexOfDay = 0):
         sortedBeaches = []
-        highestNumberInRating = 0
+        beachWithRankingPoints = {}
+        beachEntitiesCollection = {}
 
         for beachEntity in self.beachEntities:
             if(not beachEntity.daysWithRatings):
                 continue
             dayEntity = beachEntity.daysWithRatings[indexOfDay]
+            summaryOfRating = 0
             for ratingEntity in dayEntity.ratingsForDay:
-                print(f' czy jest numeric dla plazy {beachEntity.nameOfBeach} is {isnumeric(ratingEntity.rating)}')
-                if(isnumeric(ratingEntity.rating) and int(ratingEntity.rating) >= int(highestNumberInRating)):
-                    highestNumberInRating = int(ratingEntity.rating)
-                    if(len(sortedBeaches) == 0 or (len(sortedBeaches) > 0 and sortedBeaches[0].nameOfBeach != beachEntity.nameOfBeach)):
-                        sortedBeaches.insert(0, beachEntity)
-                elif(self.isBeachAlreadyAddedToCollection(sortedBeaches, beachEntity) == False):
-                    sortedBeaches.append(beachEntity)
+                if(isnumeric(ratingEntity.rating) == False):
+                    continue
+                summaryOfRating = summaryOfRating + int(ratingEntity.rating)
+
+            print(f'Beach {beachEntity.nameOfBeach} has score {summaryOfRating}')
+
+            beachWithRankingPoints[beachEntity.nameOfBeach] = summaryOfRating
+            beachEntitiesCollection[beachEntity.nameOfBeach] = beachEntity
+
+        # print(beachWithRankingPoints)
+        keys = list(beachWithRankingPoints.keys())
+        values = list(beachWithRankingPoints.values())
+        sorted_value_index = np.argsort(values)
+        sorted_collection_of_beaches = {keys[i]: values[i] for i in sorted_value_index}
+        # print(sorted_collection_of_beaches)
+
+        for beachName in sorted_collection_of_beaches.keys():
+            sortedBeaches.insert(0, beachEntitiesCollection[beachName])
+
+
 
         newCollectionOfSortedBeaches = sortedBeaches
-        print(f'newCollectionOfSortedBeaches {newCollectionOfSortedBeaches}')
         flatStructureForRatings = self.showConditionForTodayForBeaches(newCollectionOfSortedBeaches, indexOfDay)
-        print(f'flat {flatStructureForRatings}')
         return flatStructureForRatings.split('Beach:')[1:]
-
-    def isBeachAlreadyAddedToCollection(self, sortedBeachCollection, newBeachToAdd):
-        doesntExist = False
-        for existingBeach in sortedBeachCollection:
-            if(existingBeach.nameOfBeach == newBeachToAdd.nameOfBeach):
-                doesntExist = True
-                break
-        return doesntExist
 
