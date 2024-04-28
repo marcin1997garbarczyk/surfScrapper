@@ -1,3 +1,4 @@
+import bpy as bpy
 from numpy.core.defchararray import isnumeric
 
 
@@ -41,11 +42,25 @@ class ForecastDataService:
                 continue
             dayEntity = beachEntity.daysWithRatings[indexOfDay]
             for ratingEntity in dayEntity.ratingsForDay:
+                print(f' czy jest numeric dla plazy {beachEntity.nameOfBeach} is {isnumeric(ratingEntity.rating)}')
                 if(isnumeric(ratingEntity.rating) and int(ratingEntity.rating) >= int(highestNumberInRating)):
                     highestNumberInRating = int(ratingEntity.rating)
-                    if(len(sortedBeaches) == 0 or (len(sortedBeaches) > 0  and sortedBeaches[0].nameOfBeach != beachEntity.nameOfBeach)):
+                    if(len(sortedBeaches) == 0 or (len(sortedBeaches) > 0 and sortedBeaches[0].nameOfBeach != beachEntity.nameOfBeach)):
                         sortedBeaches.insert(0, beachEntity)
+                elif(self.isBeachAlreadyAddedToCollection(sortedBeaches, beachEntity) == False):
+                    sortedBeaches.append(beachEntity)
 
         newCollectionOfSortedBeaches = sortedBeaches
+        print(f'newCollectionOfSortedBeaches {newCollectionOfSortedBeaches}')
         flatStructureForRatings = self.showConditionForTodayForBeaches(newCollectionOfSortedBeaches, indexOfDay)
+        print(f'flat {flatStructureForRatings}')
         return flatStructureForRatings.split('Beach:')[1:]
+
+    def isBeachAlreadyAddedToCollection(self, sortedBeachCollection, newBeachToAdd):
+        doesntExist = False
+        for existingBeach in sortedBeachCollection:
+            if(existingBeach.nameOfBeach == newBeachToAdd.nameOfBeach):
+                doesntExist = True
+                break
+        return doesntExist
+
