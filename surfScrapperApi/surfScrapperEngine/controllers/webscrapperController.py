@@ -3,11 +3,8 @@ from surfScrapperApi.surfScrapperEngine.services.forecastDataService import Fore
 from surfScrapperApi.surfScrapperEngine.services.webscrapperService import WebscrapperService
 
 
-def sendEmailToSubscribers(db):
-    # pass
-    new_cur = db.cursor()
-    subscribers = new_cur.execute("SELECT isActive FROM Subscribers ")
-    print(subscribers)
+def sendEmailToSubscribers():
+    pass
 
 def getBestSpotsForTommorow():
     webscrapperService = WebscrapperService(isHourlyMode=True)
