@@ -15,7 +15,7 @@ class WebscrapperService:
 
     def collectNameOfBeaches(self, url):
         r = requests.get(f'{url}{self.urlSuffix}')
-        soup = BeautifulSoup(r.content, 'html.parser')
+        soup = BeautifulSoup(r.content, 'html5lib')
 
         soupDays = soup.find('span', class_='third_step_span')
         # print(soupDays.find_all('option'))
@@ -31,7 +31,7 @@ class WebscrapperService:
 
     def scrapeRatingForBeach(self, url, beachEntity):
         r = requests.get(f'{url}{self.urlSuffix}')
-        soup = BeautifulSoup(r.content, 'html.parser')
+        soup = BeautifulSoup(r.content, 'html5lib')
 
         soupDays = soup.find('tr', class_='forecast-table-days')
         soupTime = soup.find('tr', class_='forecast-table-time')
