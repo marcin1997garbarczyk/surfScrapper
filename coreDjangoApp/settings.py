@@ -142,17 +142,23 @@ import os
 if 'EMAIL_HOST_USER' in os.environ and 'EMAIL_HOST_PASSWORD' in os.environ:
     EMAIL_HOST_USER = os.environ.get('EMAIL_HOST_USER')
     EMAIL_HOST_PASSWORD = os.environ.get('EMAIL_HOST_PASSWORD')
-# else:
-#     import config
-#     EMAIL_HOST_USER = config.EMAIL_HOST_USER
-#     EMAIL_HOST_PASSWORD = config.EMAIL_HOST_PASSWORD
+else:
+    import config
+    EMAIL_HOST_USER = config.EMAIL_HOST_USER
+    EMAIL_HOST_PASSWORD = config.EMAIL_HOST_PASSWORD
 
 
+if 'CELERY_BROKER_URL' in os.environ and 'CELERY_RESULT_BACKEND' in os.environ:
+    CELERY_BROKER_URL = os.environ.get('CELERY_BROKER_URL')
+    CELERY_RESULT_BACKEND = os.environ.get('CELERY_RESULT_BACKEND')
+else:
+    CELERY_BROKER_URL = 'redis://localhost:6379/0'
+    CELERY_RESULT_BACKEND = 'redis://localhost:6379'
 
-CELERY_BROKER_URL = 'redis://localhost:6379/0'  # Replace with your Redis URL
-CELERY_RESULT_BACKEND = 'redis://localhost:6379'  # Replace with your Redis URL
 CELERY_TIMEZONE = "America/New_York"
 
+# gunicorn coreDjangoApp.wsgi:application & celery -A coreDjangoApp.celery beat -l info --scheduler django_celery_beat.schedulers:DatabaseScheduler & celery -A coreDjangoApp.celery worker --loglevel=info -P solo
+# python manage.py runserver & celery -A coreDjangoApp.celery beat -l info --scheduler django_celery_beat.schedulers:DatabaseScheduler & celery -A coreDjangoApp.celery worker --loglevel=info -P solo
 
 # CELERY_TASK_ALWAYS_EAGER = True  # Run tasks synchronously for testing and development
 

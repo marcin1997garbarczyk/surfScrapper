@@ -15,7 +15,7 @@ async function init() {
 }
 
 async function callForBeachNames() {
-    let apiCallResponse = await fetch("http://127.0.0.1:8000/api/get_available_beaches", {
+    let apiCallResponse = await fetch("/api/get_available_beaches", {
             method: "GET",
             credentials: "same-origin",
             headers: {
@@ -44,7 +44,7 @@ async function submitForm(event) {
         }
     })
     trackedBeaches
-    let apiCallResponse = await fetch("http://127.0.0.1:8000/api/submit_subscriber_form", {
+    let apiCallResponse = await fetch("/api/submit_subscriber_form", {
           method: "POST",
           body: JSON.stringify({
             userEmail: $('#emailInput').val(),

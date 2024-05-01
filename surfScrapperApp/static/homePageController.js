@@ -18,7 +18,7 @@ async function init() {
 }
 
 async function callForBestSpots() {
-    let apiCallResponse = await fetch("http://127.0.0.1:8000/api/get_best_spots", {
+    let apiCallResponse = await fetch("/api/get_best_spots", {
             method: "GET",
             credentials: "same-origin",
             headers: {
