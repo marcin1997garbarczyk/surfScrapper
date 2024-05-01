@@ -22,3 +22,5 @@ urlpatterns = [
     path('api/', include('surfScrapperApi.urls')),
     path('', include('surfScrapperApp.urls')),
 ]
+
+

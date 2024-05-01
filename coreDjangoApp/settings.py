@@ -55,6 +55,7 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    "whitenoise.middleware.WhiteNoiseMiddleware",
 ]
 
 ROOT_URLCONF = 'coreDjangoApp.urls'
@@ -159,6 +160,9 @@ CELERY_TIMEZONE = "America/New_York"
 
 STATIC_ROOT = os.path.dirname(__file__)+'/static/'
 STATIC_URL = '/static/'
+
+import mimetypes
+mimetypes.add_type("text/css", ".css", True)
 
 # gunicorn coreDjangoApp.wsgi:application & celery -A coreDjangoApp.celery beat -l info --scheduler django_celery_beat.schedulers:DatabaseScheduler & celery -A coreDjangoApp.celery worker --loglevel=info -P solo
 # python manage.py runserver & celery -A coreDjangoApp.celery beat -l info --scheduler django_celery_beat.schedulers:DatabaseScheduler & celery -A coreDjangoApp.celery worker --loglevel=info -P solo
