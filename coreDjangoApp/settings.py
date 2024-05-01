@@ -157,6 +157,9 @@ else:
 
 CELERY_TIMEZONE = "America/New_York"
 
+STATIC_ROOT = os.path.dirname(__file__)+'/static/'
+STATIC_URL = '/static/'
+
 # gunicorn coreDjangoApp.wsgi:application & celery -A coreDjangoApp.celery beat -l info --scheduler django_celery_beat.schedulers:DatabaseScheduler & celery -A coreDjangoApp.celery worker --loglevel=info -P solo
 # python manage.py runserver & celery -A coreDjangoApp.celery beat -l info --scheduler django_celery_beat.schedulers:DatabaseScheduler & celery -A coreDjangoApp.celery worker --loglevel=info -P solo
 
