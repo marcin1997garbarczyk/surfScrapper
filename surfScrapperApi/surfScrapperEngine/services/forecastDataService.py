@@ -1,4 +1,3 @@
-import bpy as bpy
 from numpy.core.defchararray import isnumeric
 import numpy as np
 

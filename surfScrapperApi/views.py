@@ -8,6 +8,7 @@ from .surfScrapperEngine.controllers import webscrapperController
 
 from .surfScrapperEngine.services.accountService import AccountService
 from .surfScrapperEngine.services.emailService import EmailService
+from .tasks import sendEmailsToSubscribers
 
 accountService = AccountService()
 emailService = EmailService()
@@ -38,3 +39,7 @@ class SubmitSubscriberFormView(APIView):
             return Response({'message': 'Form submitted successfully!'}, status=status.HTTP_201_CREATED, content_type='application/json')
         else:
             return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
+class SendEmailToSubscribersView(APIView):
+    def get(self):
+        sendEmailsToSubscribers()

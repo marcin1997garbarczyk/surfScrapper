@@ -40,9 +40,17 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'rest_framework',
+    'django_celery_beat',
     'surfScrapperApp',
     'surfScrapperApi'
 ]
+# settings.py
+CELERY_BROKER_URL = 'redis://localhost:6379/0'  # Replace with your Redis URL
+CELERY_RESULT_BACKEND = 'redis://localhost:6379'  # Replace with your Redis URL
+CELERY_TIMEZONE = "America/New_York"
+# CELERY_TASK_ALWAYS_EAGER = True  # Run tasks synchronously for testing and development
+
+
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
