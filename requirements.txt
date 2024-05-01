@@ -52,8 +52,6 @@ soupsieve==2.5
 sqlparse==0.5.0
 tablib==3.5.0
 tzdata==2024.1
-url==0.4.2
-urllib3==2.2.1
 vine==5.1.0
 wcwidth==0.2.13
 xlrd==2.0.1
