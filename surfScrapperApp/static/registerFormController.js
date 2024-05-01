@@ -24,7 +24,6 @@ async function callForBeachNames() {
               'Content-Type': 'application/json'
             },
         })
-    debugger
     if(apiCallResponse.status == 200) {
         let apiCallParsedResponse = await apiCallResponse.json();
         return apiCallParsedResponse.beach_names
@@ -33,11 +32,23 @@ async function callForBeachNames() {
 }
 
 async function submitForm(event) {
+
+    debugger
+    let trackedBeaches = ''
+    $('.selectpicker').val().forEach( (element, index) => {
+    debugger
+        if(index == 0) {
+            trackedBeaches = element
+        } else {
+            trackedBeaches = `${trackedBeaches},${element}`
+        }
+    })
+    trackedBeaches
     let apiCallResponse = await fetch("http://127.0.0.1:8000/api/submit_subscriber_form", {
           method: "POST",
           body: JSON.stringify({
             userEmail: $('#emailInput').val(),
-            trackedBeaches: JSON.stringify($('.selectpicker').val()),
+            trackedBeaches: trackedBeaches,
           }),
             credentials: "same-origin",
             headers: {

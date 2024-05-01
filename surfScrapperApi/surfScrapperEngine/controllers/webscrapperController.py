@@ -3,8 +3,12 @@ from surfScrapperApi.surfScrapperEngine.services.forecastDataService import Fore
 from surfScrapperApi.surfScrapperEngine.services.webscrapperService import WebscrapperService
 
 
-def sendEmailToSubscribers():
-    pass
+# def sendEmailToSubscribers():
+#     pass
+def getRatingForSelectedBeaches(name_of_beaches):
+    webscrapperService = WebscrapperService(isHourlyMode=True)
+    beachEntities = buildBeachEntitiesFromWebsite(webscrapperService, name_of_beaches)
+    return filterBeachEntitiesToThreeBest(beachEntities)
 
 def getBestSpotsForTommorow():
     webscrapperService = WebscrapperService(isHourlyMode=True)
@@ -36,5 +40,5 @@ def filterBeachEntitiesToThreeBest(beachEntities):
     # Index for day is count from today +n
     # Today = 0
     # Tommorow = 1 ... n+1
-    print(f'Beach Entities {beachEntities}')
+    # print(f'Beach Entities {beachEntities}')
     return forecastDataService.getThreeBestSpotsForDay(indexOfDay=0)

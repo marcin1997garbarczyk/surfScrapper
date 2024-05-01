@@ -3,6 +3,7 @@ from six import text_type
 from django.utils.encoding import force_str
 from django.utils.http import urlsafe_base64_decode
 
+from surfScrapperApi.surfScrapperEngine.controllers.webscrapperController import getRatingForSelectedBeaches
 from surfScrapperApi.surfScrapperEngine.services.emailService import EmailService
 
 
@@ -49,6 +50,15 @@ class AccountService:
             return True
         else:
             return False
+
+    def sendRatingsToActiveUsers(self, subscriberModel):
+        activeSubscribers = subscriberModel.objects.filter(isActive = True)
+        for subscriberObj in activeSubscribers:
+            nameOfTrackedBeaches = subscriberObj.trackedBeaches.split(',')
+            ratingForBeaches = getRatingForSelectedBeaches(nameOfTrackedBeaches)[:3]
+            ratingForBeachesText = str(ratingForBeaches)[2:len(str(ratingForBeaches))-2].replace("', '", '').encode().decode('unicode-escape')
+            print(f'best: {ratingForBeachesText}')
+            EmailService().sendRatingEmail(subscriberObj, ratingForBeachesText)
 
 class TokenGenerator(PasswordResetTokenGenerator):
     def _make_hash_value(self, user, timestamp):
