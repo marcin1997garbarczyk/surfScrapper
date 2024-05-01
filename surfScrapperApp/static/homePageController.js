@@ -28,9 +28,9 @@ async function callForBestSpots() {
             },
         })
     debugger
+    let apiCallParsedResponse = await apiCallResponse.json();
+    debugger
     if(apiCallResponse.status == 200) {
-        let apiCallParsedResponse = await apiCallResponse.json();
-        debugger
         return apiCallParsedResponse.beach_entities
     }
     return []
