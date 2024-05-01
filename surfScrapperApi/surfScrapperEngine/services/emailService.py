@@ -6,9 +6,6 @@ from django.template.loader import render_to_string
 from django.utils.html import strip_tags
 from django.utils.http import urlsafe_base64_encode, urlsafe_base64_decode
 
-import config
-
-
 class EmailService:
 
     def sendInformativeEmail(self, user):

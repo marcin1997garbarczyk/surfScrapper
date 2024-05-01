@@ -12,7 +12,6 @@ https://docs.djangoproject.com/en/5.0/ref/settings/
 
 from pathlib import Path
 
-import config
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -45,10 +44,6 @@ INSTALLED_APPS = [
     'surfScrapperApi'
 ]
 # settings.py
-CELERY_BROKER_URL = 'redis://localhost:6379/0'  # Replace with your Redis URL
-CELERY_RESULT_BACKEND = 'redis://localhost:6379'  # Replace with your Redis URL
-CELERY_TIMEZONE = "America/New_York"
-# CELERY_TASK_ALWAYS_EAGER = True  # Run tasks synchronously for testing and development
 
 
 
@@ -137,8 +132,22 @@ STATIC_URL = 'static/'
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
-EMAIL_USE_TLS = config.EMAIL_USE_TLS
-EMAIL_HOST = config.EMAIL_HOST
-EMAIL_PORT = config.EMAIL_PORT
-EMAIL_HOST_USER = config.EMAIL_HOST_USER
-EMAIL_HOST_PASSWORD = config.EMAIL_HOST_PASSWORD
+EMAIL_USE_TLS = True
+EMAIL_HOST = 'smtp.gmail.com'
+EMAIL_PORT = 587
+
+
+import os
+
+EMAIL_HOST_USER = os.environ.get('EMAIL_HOST_USER')
+EMAIL_HOST_PASSWORD = os.environ.get('EMAIL_HOST_PASSWORD')
+
+CELERY_BROKER_URL = 'redis://localhost:6379/0'  # Replace with your Redis URL
+CELERY_RESULT_BACKEND = 'redis://localhost:6379'  # Replace with your Redis URL
+CELERY_TIMEZONE = "America/New_York"
+
+
+# CELERY_TASK_ALWAYS_EAGER = True  # Run tasks synchronously for testing and development
+
+# EMAIL_HOST_USER = config.EMAIL_HOST_USER
+# EMAIL_HOST_PASSWORD = config.EMAIL_HOST_PASSWORD
