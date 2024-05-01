@@ -26,7 +26,7 @@ SECRET_KEY = 'django-insecure-(cxsz5q#hdh0=uk^-=hzzzi01qhijz03f#%e&v3zb&eou%s9f5
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['surfscrapper.onrender.com', '127.0.0.1']
 
 
 # Application definition
@@ -139,8 +139,15 @@ EMAIL_PORT = 587
 
 import os
 
-EMAIL_HOST_USER = os.environ.get('EMAIL_HOST_USER')
-EMAIL_HOST_PASSWORD = os.environ.get('EMAIL_HOST_PASSWORD')
+if 'EMAIL_HOST_USER' in os.environ and 'EMAIL_HOST_PASSWORD' in os.environ:
+    EMAIL_HOST_USER = os.environ.get('EMAIL_HOST_USER')
+    EMAIL_HOST_PASSWORD = os.environ.get('EMAIL_HOST_PASSWORD')
+else:
+    import config
+    EMAIL_HOST_USER = config.EMAIL_HOST_USER
+    EMAIL_HOST_PASSWORD = config.EMAIL_HOST_PASSWORD
+
+
 
 CELERY_BROKER_URL = 'redis://localhost:6379/0'  # Replace with your Redis URL
 CELERY_RESULT_BACKEND = 'redis://localhost:6379'  # Replace with your Redis URL
@@ -149,5 +156,3 @@ CELERY_TIMEZONE = "America/New_York"
 
 # CELERY_TASK_ALWAYS_EAGER = True  # Run tasks synchronously for testing and development
 
-# EMAIL_HOST_USER = config.EMAIL_HOST_USER
-# EMAIL_HOST_PASSWORD = config.EMAIL_HOST_PASSWORD
