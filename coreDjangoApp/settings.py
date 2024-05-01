@@ -142,10 +142,10 @@ import os
 if 'EMAIL_HOST_USER' in os.environ and 'EMAIL_HOST_PASSWORD' in os.environ:
     EMAIL_HOST_USER = os.environ.get('EMAIL_HOST_USER')
     EMAIL_HOST_PASSWORD = os.environ.get('EMAIL_HOST_PASSWORD')
-else:
-    import config
-    EMAIL_HOST_USER = config.EMAIL_HOST_USER
-    EMAIL_HOST_PASSWORD = config.EMAIL_HOST_PASSWORD
+# else:
+#     import config
+#     EMAIL_HOST_USER = config.EMAIL_HOST_USER
+#     EMAIL_HOST_PASSWORD = config.EMAIL_HOST_PASSWORD
 
 
 
