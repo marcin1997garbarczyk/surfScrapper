@@ -68,3 +68,59 @@ class ForecastDataService:
         flatStructureForRatings = self.showConditionForTodayForBeaches(newCollectionOfSortedBeaches, indexOfDay)
         return flatStructureForRatings.split('Beach:')[1:]
 
+
+    def uploadBeachesToDb(self, beachModel, indexOfDay = 0):
+        sortedBeaches = []
+        beachWithRankingPoints = {}
+        beachEntitiesCollection = {}
+
+        for beachEntity in self.beachEntities:
+            if(not beachEntity.daysWithRatings):
+                continue
+            dayEntity = beachEntity.daysWithRatings[indexOfDay]
+            summaryOfRating = 0
+            for ratingEntity in dayEntity.ratingsForDay:
+                if(isnumeric(ratingEntity.rating) == False):
+                    continue
+                summaryOfRating = summaryOfRating + int(ratingEntity.rating)
+
+            print(f'Beach {beachEntity.nameOfBeach} has score {summaryOfRating}')
+
+            beachWithRankingPoints[beachEntity.nameOfBeach] = summaryOfRating
+            beachEntitiesCollection[beachEntity.nameOfBeach] = beachEntity
+
+        keys = list(beachWithRankingPoints.keys())
+        values = list(beachWithRankingPoints.values())
+        sorted_value_index = np.argsort(values)
+        sorted_collection_of_beaches = {keys[i]: values[i] for i in sorted_value_index}
+
+
+        for beachName in sorted_collection_of_beaches.keys():
+            sortedBeaches.insert(0, beachEntitiesCollection[beachName])
+            textForHtml = ''
+            beachEntity = beachEntitiesCollection[beachName]
+            textForHtml += f'Beach: {beachEntity.nameOfBeach} '
+            if(not beachEntity.daysWithRatings):
+                continue
+            dayEntity = beachEntity.daysWithRatings[indexOfDay]
+
+            textForHtml += f'<br/> Condition for {dayEntity.dayName}:'
+            for ratingEntity in dayEntity.ratingsForDay:
+                textForHtml += f'<br/>{ratingEntity}'
+
+            try:
+                obj = beachModel.objects.get(name=beachName)
+            except(TypeError, ValueError, OverflowError, beachModel.DoesNotExist):
+                obj = beachModel()
+                obj.name = beachName
+            obj.textForHtml = textForHtml
+            obj.totalScore = beachWithRankingPoints[beachName]
+            obj.save()
+
+
+
+
+        newCollectionOfSortedBeaches = sortedBeaches
+        flatStructureForRatings = self.showConditionForTodayForBeaches(newCollectionOfSortedBeaches, indexOfDay)
+        return flatStructureForRatings.split('Beach:')[1:]
+

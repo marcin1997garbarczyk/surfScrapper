@@ -1,6 +1,7 @@
 from surfScrapperApi.surfScrapperEngine.entities.beachEntity import BeachEntity
 from surfScrapperApi.surfScrapperEngine.services.forecastDataService import ForecastDataService
 from surfScrapperApi.surfScrapperEngine.services.webscrapperService import WebscrapperService
+from django.core.serializers import serialize
 
 
 # def sendEmailToSubscribers():
@@ -10,11 +11,21 @@ def getRatingForSelectedBeaches(name_of_beaches):
     beachEntities = buildBeachEntitiesFromWebsite(webscrapperService, name_of_beaches)
     return filterBeachEntitiesToThreeBest(beachEntities)
 
+def scrapeAndUploadBestSpotsToDb(beachModel):
+    webscrapperService = WebscrapperService(isHourlyMode=True)
+    name_of_beaches = getNameOfBeachesInAlgarve(webscrapperService)
+    beachEntities = buildBeachEntitiesFromWebsite(webscrapperService, name_of_beaches)
+    forecastDataService = ForecastDataService(beachEntities)
+    forecastDataService.uploadBeachesToDb(beachModel=beachModel, indexOfDay=0)
+
 def getBestSpotsForTommorow():
     webscrapperService = WebscrapperService(isHourlyMode=True)
     name_of_beaches = getNameOfBeachesInAlgarve(webscrapperService)
     beachEntities = buildBeachEntitiesFromWebsite(webscrapperService, name_of_beaches)
     return filterBeachEntitiesToThreeBest(beachEntities)
+
+def getBestSpotsForToday(beachModel):
+    return serialize("json", beachModel.objects.all().order_by('totalScore').reverse())
 
 def getNameOfBeachesForApi():
     webscrapperService = WebscrapperService(isHourlyMode=True)

@@ -3,7 +3,7 @@ from rest_framework import status
 from rest_framework.response import Response
 from rest_framework.views import APIView
 from .serializers import SubscriberFormSerializer
-from .models import Subscriber
+from .models import Subscriber, Beach
 from .surfScrapperEngine.controllers import webscrapperController
 
 from .surfScrapperEngine.services.accountService import AccountService
@@ -15,8 +15,8 @@ emailService = EmailService()
 
 class BestSpotsInAlgarveApiView(APIView):
     def get(self, request, format=None):
-        beach_entities = webscrapperController.getBestSpotsForTommorow()
-        return Response({'beach_entities': beach_entities}, status=status.HTTP_200_OK, content_type='application/json')
+        beach_data_from_db = webscrapperController.getBestSpotsForToday(Beach)
+        return Response({'beach_data_from_db': beach_data_from_db}, status=status.HTTP_200_OK, content_type='application/json')
 
 class AvailableBeachesApiView(APIView):
     def get(self, request, format=None):

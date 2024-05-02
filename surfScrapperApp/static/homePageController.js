@@ -5,8 +5,8 @@ async function init() {
     dataForHtml = ''
     data.forEach((beach, index) => {
         debugger
-        let beachName = beach.split(' ')[1];
-        dataForHtml = `${dataForHtml} ${buildBootstrapCard(beachName, beach.replace(beachName,''), index+1)}`
+        let beachName = beach.fields.name
+        dataForHtml = `${dataForHtml} ${buildBootstrapCard(beachName, beach.fields.textForHtml, index+1)}`
         debugger
     })
     const element = document.getElementById('forecastData')
@@ -31,7 +31,7 @@ async function callForBestSpots() {
     let apiCallParsedResponse = await apiCallResponse.json();
     debugger
     if(apiCallResponse.status == 200) {
-        return apiCallParsedResponse.beach_entities
+        return JSON.parse(apiCallParsedResponse.beach_data_from_db)
     }
     return []
 }
