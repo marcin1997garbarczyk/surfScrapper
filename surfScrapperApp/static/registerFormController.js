@@ -31,19 +31,21 @@ async function callForBeachNames() {
     return []
 }
 
-async function submitForm(event) {
+async function submitForm() {
+    let spinnerElement = document.getElementById('loaderInForm')
+    let buttonElement = document.getElementById('buttonToSubmit')
+    buttonElement.style.display = 'none'
+    spinnerElement.style.display = 'block'
 
-    debugger
     let trackedBeaches = ''
     $('.selectpicker').val().forEach( (element, index) => {
-    debugger
         if(index == 0) {
             trackedBeaches = element
         } else {
             trackedBeaches = `${trackedBeaches},${element}`
         }
     })
-    trackedBeaches
+
     let apiCallResponse = await fetch("/api/submit_subscriber_form", {
           method: "POST",
           body: JSON.stringify({
@@ -58,14 +60,15 @@ async function submitForm(event) {
             },
         })
 
-    if(apiCallResponse.status == 201) {
-        let apiCallParsedResponse = await apiCallResponse.json();
-        var toastElList = [].slice.call(document.querySelectorAll('.toast'))
-          var toastList = toastElList.map(function(toastEl) {
-            return new bootstrap.Toast(toastEl)
-          })
-          toastList.forEach(toast => toast.show())
-    }
+    let apiCallParsedResponse = await apiCallResponse.json();
+
+    let formElement = document.getElementById('formId');
+    formElement.style.display="none"
+
+    let infoMessage = document.getElementById('infoAfterSave');
+    infoMessage.textContent=apiCallParsedResponse.message
+
+    spinnerElement.style.display = 'none'
 }
 
 function getCookie(name) {

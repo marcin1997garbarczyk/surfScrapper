@@ -8,7 +8,8 @@
 <br/>
 <h1 class="fw-lighter">Subscription for information about ratings!</h1>
 
-<div class="card">
+
+<div class="card"  id="formId">
   <div class="card-body">
     <form>
       <div class="mb-3">
@@ -23,27 +24,21 @@
             <option value="1">Still loading...</option>
           </select>
       </div><div class="text-center">
-      <button type="submit" class="btn btn-secondary" onclick="submitForm()">Register me!</button>
+
+      <button id='buttonToSubmit' type="button" class="btn btn-secondary" onclick="submitForm()">Register me!
+      </button>
+
+      <div class="d-flex justify-content-center" >
+          <div id='loaderInForm' class="spinner-border" role="status" style="display:none"></div>
+      </div>
     </div>
     </form>
   </div>
 </div>
+<div id="infoAfterSave">
+  <h2 class="fw-lighter"></h2>
+</div>
 
-    <div aria-live="polite" aria-atomic="true" class="d-flex justify-content-center align-items-center w-100">
-
-      <!-- Then put toasts within -->
-      <div class="toast" role="alert" aria-live="assertive" aria-atomic="true">
-        <div class="toast-header">
-          <img src="..." class="rounded me-2" alt="...">
-          <strong class="me-auto">Bootstrap</strong>
-          <small>11 mins ago</small>
-          <button type="button" class="btn-close" data-bs-dismiss="toast" aria-label="Close"></button>
-        </div>
-        <div class="toast-body">
-          Hello, world! This is a toast message.
-        </div>
-      </div>
-    </div>
     <script src="{% static 'registerFormController.js' %}"></script>
 
 {% endblock %}

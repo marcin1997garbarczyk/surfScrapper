@@ -12,12 +12,10 @@ accountService = AccountService()
 
 @shared_task
 def sendEmailsToSubscribers():
-    print('Schedule Mail Task')
     logger.info("Executing Mail Task")
     accountService.sendRatingsToActiveUsers(Subscriber)
 
 @shared_task
 def scrapeForecastAndUploadDb():
-    print('Schedule Upload Db Task')
     logger.info("Executing Upload Db Task")
-    webscrapperController.scrapeAndUploadBestSpotsToDb(Beach)
+    webscrapperController.scrapeAndUploadAllBeachesToDb(Beach)

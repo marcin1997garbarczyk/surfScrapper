@@ -15,12 +15,12 @@ emailService = EmailService()
 
 class BestSpotsInAlgarveApiView(APIView):
     def get(self, request, format=None):
-        beach_data_from_db = webscrapperController.getBestSpotsForToday(Beach)
+        beach_data_from_db = webscrapperController.getSortedBeachesInJSON(Beach)
         return Response({'beach_data_from_db': beach_data_from_db}, status=status.HTTP_200_OK, content_type='application/json')
 
 class AvailableBeachesApiView(APIView):
     def get(self, request, format=None):
-        beach_names = webscrapperController.getNameOfBeachesForApi()
+        beach_names = webscrapperController.getNameOfBeachesInAlgarve()
         return Response({'beach_names': beach_names}, status=status.HTTP_200_OK, content_type='application/json')
 
 class ActivationOfEmail(APIView):
@@ -38,7 +38,7 @@ class SubmitSubscriberFormView(APIView):
         if isSuccess:
             return Response({'message': 'Form submitted successfully!'}, status=status.HTTP_201_CREATED, content_type='application/json')
         else:
-            return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+            return Response({'message': serializer.errors}, status=status.HTTP_400_BAD_REQUEST)
 
 class SendEmailToSubscribersView(APIView):
     def get(self):

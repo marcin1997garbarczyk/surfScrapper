@@ -1,45 +1,55 @@
-# Surfscrapper - Surf Forecast Algarve
+# surfScrapper
 
-The Surf Forecast Algarve project allows users to check surfing conditions along the coast of Portugal, particularly in the Algarve region. The program retrieves data from SurfForecast.com to provide up-to-date information on various surfing spots. (https://www.surf-forecast.com/breaks/Alfagar/forecasts/latest)
+
+surfScrapper is a web application designed to provide users with the latest rankings of the best surfing beaches along the Algarve coast. It operates by scraping data from various surfing ranking portals for this region, updating its database every hour, and then sorting the information using a specific algorithm.
+
 ## Features
 
-- **Data Retrieval**: The program fetches surfing condition data from SurfForecast.com for various beaches along the Algarve coast.
-  
-- **Displaying Top Spots**: Users can view the top spots for a specific day to choose the best beach for surfing.
+- Hourly updates of surfing beach rankings along the Algarve coast.
+- User-friendly interface displaying the top beaches for surfing.
+- Subscription feature allowing users to receive email updates for specific beaches.
+- Email confirmation for subscription to ensure security.
+- Worker based on Celery and Redis for sending email updates.
+- Technologies used: Python, Django, SQLite, Celery, and Redis.
 
-- **Dynamic Adaptation to New Beaches**: The program is prepared to add new beaches to its database, ensuring it remains effective even with an increasing number of available surfing spots.
+## Installation
 
-- **Returning Conditions for All Beaches**: Users can obtain information on surfing conditions for all beaches simultaneously.
+To run surfScrapper locally, follow these steps:
 
-- **Returning Conditions for a Specific Beach**: Users can also view conditions for a specific beach.
+1. Clone this repository: `git clone https://github.com/marcin1997garbarczyk/surfScrapper.git`
+2. Navigate into the project directory: `cd surfScrapper`
+3. Install dependencies: `pip install -r requirements.txt`
+4. Make migrations: `python manage.py makemigrations` followed by `python manage.py migrate`
+5. Run the server: `python manage.py runserver`
+6. Access the application at `http://127.0.0.1:8000/`
+7. *If you have redisCli and redisServer on your PC* - Run workers (`celery -A coreDjangoApp.celery beat -l info --scheduler django_celery_beat.schedulers:DatabaseScheduler & celery -A coreDjangoApp.celery worker --loglevel=info -P solo`)
 
-- **7-Day Forecast**: The program provides a forecast for the next 7 days for all beaches.
-
-- **Results for a Specific Day and Time**: Users can select a specific day and time to check surfing conditions for that period.
 
 ## Usage
 
-1. **Installation**: To run the program, install the required Python libraries using `pip install -r requirements.txt`.
-   
-2. **Execution**: Run the `main.py` file using `python main.py`.
+1. Visit the homepage to view the current rankings of the best surfing beaches along the Algarve coast.
+2. Subscribe to receive email updates for specific beaches:
+   - Navigate to the subscription page.
+   - Enter your email address and select the beaches you want to follow.
+   - An email with an activation link will be sent to your email address.
+   - Click on the activation link to confirm your subscription.
+3. Once confirmed, you will start receiving daily emails with the top three surfing beaches among your subscribed ones.
 
+## Main technology stack 
 
-## Example response of engine if we want to get best spots for today
+- Python 
+- Beautifulsoup
+- Django
+- SQLite
+- Celery
+- Redis
+- 
+## Screenshots
 
-"Name of beach Julias
-Today condition is: 
-- Rating for AM is 3
-- Rating for PM is 2
-- Rating for Night is 0
+Demo version: https://surfscrapper.onrender.com
 
- Name of beach Burgau
-Today condition is: 
-- Rating for AM is 3
-- Rating for PM is 1
-- Rating for Night is 0
-
- Name of beach Barranco-da-Belharucas
-Today condition is: 
-- Rating for AM is 3
-- Rating for PM is 0
-- Rating for Night is 0"
+![surfScrapper Screenshot](/readmeScreens/homePage.png)
+![surfScrapper Screenshot](/readmeScreens/form.png)
+![surfScrapper Screenshot](/readmeScreens/formSuccess.png)
+![surfScrapper Screenshot](/readmeScreens/emailForm.png)
+![surfScrapper Screenshot](/readmeScreens/conditionTemp.png)

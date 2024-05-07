@@ -1,16 +1,13 @@
 
 async function init() {
     let data = await callForBestSpots();
-    debugger
     dataForHtml = ''
     data.forEach((beach, index) => {
-        debugger
         let beachName = beach.fields.name
-        dataForHtml = `${dataForHtml} ${buildBootstrapCard(beachName, beach.fields.textForHtml, index+1)}`
-        debugger
+        let beachNameToReplace = `Beach: ${beachName} <br/>`
+        dataForHtml = `${dataForHtml} ${buildBootstrapCard(beachName, beach.fields.textForHtml.replaceAll(beachNameToReplace,''), index+1)}`
     })
     const element = document.getElementById('forecastData')
-    debugger
         element.innerHTML = dataForHtml;
         element.outerHtml = dataForHtml;
         element.html = dataForHtml;
@@ -27,9 +24,7 @@ async function callForBestSpots() {
               'Content-Type': 'application/json'
             },
         })
-    debugger
     let apiCallParsedResponse = await apiCallResponse.json();
-    debugger
     if(apiCallResponse.status == 200) {
         return JSON.parse(apiCallParsedResponse.beach_data_from_db)
     }
@@ -37,6 +32,7 @@ async function callForBestSpots() {
 }
 
 function buildBootstrapCard(beachName, ratingData, position) {
+
     return `<div class="card" style="width: 20rem; margin:10px">
         <div class="card-body">
             <h5 class="card-title" style="text-align: center">Beach ${beachName}</h5>
