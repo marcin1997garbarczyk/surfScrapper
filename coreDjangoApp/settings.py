@@ -152,6 +152,7 @@ else:
 
 if 'CELERY_BROKER_URL' in os.environ and 'CELERY_RESULT_BACKEND' in os.environ:
     CELERY_BROKER_URL = os.environ.get('CELERY_BROKER_URL')
+    CELERY_BROKER_TRANSPORT_URL = os.environ.get('CELERY_BROKER_URL')
     CELERY_RESULT_BACKEND = os.environ.get('CELERY_RESULT_BACKEND')
 else:
     CELERY_BROKER_URL = 'redis://localhost:6379/0'
