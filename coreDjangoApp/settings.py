@@ -26,7 +26,7 @@ SECRET_KEY = 'django-insecure-(cxsz5q#hdh0=uk^-=hzzzi01qhijz03f#%e&v3zb&eou%s9f5
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['surfscrapper.onrender.com', '127.0.0.1']
+ALLOWED_HOSTS = ['surfscrapper.onrender.com', '127.0.0.1', '*', 'surfscrapper-production.up.railway.app' ]
 
 
 # Application definition
