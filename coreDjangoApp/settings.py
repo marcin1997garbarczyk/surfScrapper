@@ -26,8 +26,9 @@ SECRET_KEY = 'django-insecure-(cxsz5q#hdh0=uk^-=hzzzi01qhijz03f#%e&v3zb&eou%s9f5
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['surfscrapper.onrender.com', '127.0.0.1']
+ALLOWED_HOSTS = ['surfscrapper.onrender.com', '127.0.0.1', '*', 'surfscrapper-production.up.railway.app' ]
 
+CSRF_TRUSTED_ORIGINS = ['https://surfscrapper-production.up.railway.app', '*']
 
 # Application definition
 
@@ -151,6 +152,7 @@ else:
 
 if 'CELERY_BROKER_URL' in os.environ and 'CELERY_RESULT_BACKEND' in os.environ:
     CELERY_BROKER_URL = os.environ.get('CELERY_BROKER_URL')
+    CELERY_BROKER_TRANSPORT_URL = os.environ.get('CELERY_BROKER_URL')
     CELERY_RESULT_BACKEND = os.environ.get('CELERY_RESULT_BACKEND')
 else:
     CELERY_BROKER_URL = 'redis://localhost:6379/0'
