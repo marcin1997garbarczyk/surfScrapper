@@ -109,8 +109,8 @@ class ForecastDataService:
                 textForHtml += f'<br/>{ratingEntity}'
 
             try:
-                obj = beachModel.objects.get(name=beachName)
-            except(TypeError, ValueError, OverflowError, beachModel.DoesNotExist):
+                obj = beachModel.objects.filter(name=beachName, indexOfDay=indexOfDay)[0]
+            except(TypeError, ValueError, OverflowError, beachModel.DoesNotExist, IndexError):
                 obj = beachModel()
                 obj.name = beachName
             obj.textForHtml = textForHtml
