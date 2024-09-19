@@ -5,3 +5,6 @@ def home(request):
     return render(request, 'home.html')
 def registerForm(request):
     return render(request, 'registerForm.html')
+
+def tomorrowPage(request):
+    return render(request, 'tomorrowPage.html')

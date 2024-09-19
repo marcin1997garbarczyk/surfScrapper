@@ -114,6 +114,7 @@ class ForecastDataService:
                 obj = beachModel()
                 obj.name = beachName
             obj.textForHtml = textForHtml
+            obj.indexOfDay = indexOfDay
             obj.totalScore = beachWithRankingPoints[beachName]
             obj.save()
 

@@ -13,9 +13,18 @@ from .tasks import sendEmailsToSubscribers
 accountService = AccountService()
 emailService = EmailService()
 
-class BestSpotsInAlgarveApiView(APIView):
+class BestSpotsInAlgarveForTomorrowApiView(APIView):
     def get(self, request, format=None):
-        beach_data_from_db = webscrapperController.getSortedBeachesInJSON(Beach)
+        # webscrapperController.scrapeAndUploadAllBeachesToDb(Beach)
+        print('Wywoluje sie 19')
+        beach_data_from_db = webscrapperController.getSortedBeachesInJSON(Beach, indOfDay=1)
+        return Response({'beach_data_from_db': beach_data_from_db}, status=status.HTTP_200_OK, content_type='application/json')
+
+class BestSpotsInAlgarveForTodayApiView(APIView):
+    def get(self, request, format=None):
+        # webscrapperController.scrapeAndUploadAllBeachesToDb(Beach)
+        print('WYWOULUJE SIE 26')
+        beach_data_from_db = webscrapperController.getSortedBeachesInJSON(Beach, indOfDay=0)
         return Response({'beach_data_from_db': beach_data_from_db}, status=status.HTTP_200_OK, content_type='application/json')
 
 class AvailableBeachesApiView(APIView):

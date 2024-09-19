@@ -6,7 +6,7 @@ from .models import Subscriber, Beach
 
 @admin.register(Beach)
 class SubscriberAdmin(admin.ModelAdmin):
-    list_display = ['pk', 'name', 'textForHtml', 'totalScore']
+    list_display = ['pk', 'name', 'textForHtml','indexOfDay', 'totalScore']
 @admin.register(Subscriber)
 class SubscriberAdmin(admin.ModelAdmin):
     list_display = ['pk', 'userEmail', 'trackedBeaches', 'isActive']

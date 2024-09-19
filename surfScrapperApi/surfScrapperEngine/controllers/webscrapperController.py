@@ -14,10 +14,11 @@ def scrapeAndUploadAllBeachesToDb(beachModel):
     name_of_beaches = getNameOfBeachesInAlgarve()
     beachEntities = scrapeDataAndConvertToBeachEntities(name_of_beaches)
     forecastDataService = ForecastDataService(beachEntities)
+    forecastDataService.uploadBeachesToDb(beachModel=beachModel, indexOfDay=0)
     forecastDataService.uploadBeachesToDb(beachModel=beachModel, indexOfDay=1)
 
-def getSortedBeachesInJSON(beachModel):
-    return serialize("json", beachModel.objects.all().order_by('totalScore').reverse())
+def getSortedBeachesInJSON(beachModel, indOfDay = 0):
+    return serialize("json", beachModel.objects.filter(indexOfDay=indOfDay).order_by('totalScore').reverse())
 
 def getNameOfBeachesInAlgarve():
     return webscrapperService.collectNameOfBeaches('https://www.surf-forecast.com/breaks/Praiado-Amado/forecasts/latest')

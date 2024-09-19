@@ -28,7 +28,7 @@ DEBUG = True
 
 ALLOWED_HOSTS = ['surfscrapper.onrender.com', '127.0.0.1', '*', 'surfscrapper-production.up.railway.app' ]
 
-CSRF_TRUSTED_ORIGINS = ['https://surfscrapper-production.up.railway.app', '*']
+CSRF_TRUSTED_ORIGINS = ['https://surfscrapper-production.up.railway.app', 'http://127.0.0.1:8000']
 
 # Application definition
 

@@ -9,5 +9,6 @@ class Subscriber(models.Model):
 
 class Beach(models.Model):
     name = models.CharField(max_length=200)
+    indexOfDay = models.IntegerField(default=0)
     textForHtml = models.CharField(max_length=5000)
     totalScore = models.IntegerField(default=0)

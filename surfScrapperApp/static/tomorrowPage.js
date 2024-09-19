@@ -15,7 +15,7 @@ async function init() {
 }
 
 async function callForBestSpots() {
-    let apiCallResponse = await fetch("/api/get_best_spots_for_today", {
+    let apiCallResponse = await fetch("/api/get_best_spots_for_tomorrow", {
             method: "GET",
             credentials: "same-origin",
             headers: {
