@@ -3,6 +3,8 @@
 
 surfScrapper is a web application designed to provide users with the latest rankings of the best surfing beaches along the Algarve coast. It operates by scraping data from various surfing ranking portals for this region, updating its database every hour, and then sorting the information using a specific algorithm.
 
+Demo-link: https://surfscrapper-production.up.railway.app/
+
 ## Features
 
 - Hourly updates of surfing beach rankings along the Algarve coast.
